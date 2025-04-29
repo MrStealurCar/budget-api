@@ -54,4 +54,18 @@ envelopeRouter.put("/:id", (req, res, next) => {
   }
 });
 
+envelopeRouter.delete("/:id", (req, res, next) => {
+  const envelopeId = req.params.id;
+  const turnIdToNum = Number(envelopeId);
+  const envelopeToDelete = mockEnvelopes.findIndex(
+    (envelope) => envelope.id === turnIdToNum
+  );
+  if (envelopeToDelete !== -1) {
+    mockEnvelopes.splice(envelopeToDelete, 1);
+    res.status(204).send("Envelope successfully deleted");
+  } else {
+    res.status(404).send();
+  }
+});
+
 module.exports = envelopeRouter;
