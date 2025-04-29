@@ -2,10 +2,12 @@ const express = require("express");
 const envelopeRouter = express.Router();
 const { mockEnvelopes } = require("../db.js");
 
+// Route for getting all envelopes in mockEnvelopes
 envelopeRouter.get("/", (req, res, next) => {
   res.send(mockEnvelopes);
 });
 
+//Route for adding envelopes to mockEnvelopes
 envelopeRouter.post("/", (req, res, next) => {
   //finds the highest ID in the mockEnvelopes array
   const findHighestId = mockEnvelopes.reduce((acc, currentVal) => {
@@ -25,6 +27,7 @@ envelopeRouter.post("/", (req, res, next) => {
   res.status(201).send(mockEnvelopes);
 });
 
+// Route for getting envelope based on ID
 envelopeRouter.get("/:id", (req, res, next) => {
   const envelopeId = req.params.id;
   const turnIdToNum = Number(envelopeId);
@@ -39,6 +42,7 @@ envelopeRouter.get("/:id", (req, res, next) => {
   }
 });
 
+// Route for updating envelope based on ID
 envelopeRouter.put("/:id", (req, res, next) => {
   const envelopeId = req.params.id;
   const turnIdToNum = Number(envelopeId);
@@ -54,6 +58,7 @@ envelopeRouter.put("/:id", (req, res, next) => {
   }
 });
 
+// Route for deleting envelopes based on ID
 envelopeRouter.delete("/:id", (req, res, next) => {
   const envelopeId = req.params.id;
   const turnIdToNum = Number(envelopeId);
@@ -68,6 +73,7 @@ envelopeRouter.delete("/:id", (req, res, next) => {
   }
 });
 
+// Route for transferring funds between two envelopes
 envelopeRouter.post("/:sourceId/:destinationId", (req, res, next) => {
   const amountToTransfer = req.body.amount;
   const sourceId = req.params.sourceId;
