@@ -25,4 +25,18 @@ envelopeRouter.post("/", (req, res, next) => {
   res.status(201).send(mockEnvelopes);
 });
 
+envelopeRouter.get("/:id", (req, res, next) => {
+  const envelopeId = req.params.id;
+  const turnIdToNum = Number(envelopeId);
+  const foundEnvelope = mockEnvelopes.find(
+    (currentVal) => currentVal.id === turnIdToNum
+  );
+
+  if (foundEnvelope) {
+    res.send(foundEnvelope);
+  } else {
+    res.status(404).send("Envelope not found");
+  }
+});
+
 module.exports = envelopeRouter;
