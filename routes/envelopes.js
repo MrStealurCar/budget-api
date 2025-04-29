@@ -39,4 +39,19 @@ envelopeRouter.get("/:id", (req, res, next) => {
   }
 });
 
+envelopeRouter.put("/:id", (req, res, next) => {
+  const envelopeId = req.params.id;
+  const turnIdToNum = Number(envelopeId);
+  const foundEnvelope = mockEnvelopes.find(
+    (currentVal) => currentVal.id === turnIdToNum
+  );
+  if (foundEnvelope) {
+    foundEnvelope.title = req.body.title;
+    foundEnvelope.budget = req.body.budget;
+    res.send(foundEnvelope);
+  } else {
+    res.status(404).send();
+  }
+});
+
 module.exports = envelopeRouter;
